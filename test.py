@@ -1,13 +1,34 @@
-class Point:
-    default_color = "red"
-    def __init__(self, x, y) -> None:
-        self.x = x
-        self.y = y
-        pass
-    
-    def draw(self):
-        print(f"Point ({self.x} , {self.y})")
-        print(f"Default color: {self.default_color}")
+class TagCloud:
+    def __init__(self):
+        self.tags = {}
 
-point = Point(1,2)
-point.draw()
+    def add(self, tag):
+        self.tags[tag.lower()] = self.tags.get(tag.lower(), 0) + 1
+    
+    def __getitem__(self, tag):
+        return self.tags.get(tag.lower(), 0)
+
+    def __len__(self):
+        return len(self.tags)
+    
+    def __setitem__(self, tag, count):
+        self.tags[tag.lower()]=count
+
+    def __iter__(self):
+        return iter(self.tags)
+
+cloud = TagCloud()
+cloud.add("python")
+cloud.add("python")
+cloud.add("Python")
+cloud.add("C#")
+cloud.add("Java")
+cloud.add("Java")
+
+print(cloud.tags)
+print(cloud.__getitem__("Python"))
+cloud.__setitem__("python",10)
+print(cloud.__getitem__("python"))
+print(cloud.__len__())
+for tag in cloud.__iter__():
+    print(tag)
