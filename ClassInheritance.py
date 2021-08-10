@@ -1,7 +1,7 @@
 class Animal:
-    def __init__(self) -> None:
+    def __init__(self):
         self.age = 1
-        pass
+        
     def eat(self):
         print("eat")
 
