@@ -1,10 +1,13 @@
+from abc import ABC, abstractmethod
+
+
 class StreamAlreadyOpenError(Exception):
     pass
 
 class StreamNotOpenError(Exception):
     pass
 
-class Stream():
+class Stream(ABC):
     def __init__(self):
         self.opened = False
     
@@ -18,6 +21,10 @@ class Stream():
             raise StreamNotOpenError("No stream open")
         self.opened = False
 
+    @abstractmethod
+    def read(self):
+        pass
+
 class FileStream(Stream):
     def read(self):
         print("Reading data from a file...")
@@ -26,14 +33,11 @@ class NetworkStream(Stream):
     def read(self):
         print("Reading data from the network...")
 
-ns = NetworkStream()
-fs = FileStream()
-ns.open()
-fs.open()
+class MemoryStream(Stream):
+    def read(self):
+        print("Reading data from the memory...")
 
-ns.close()
-fs.close()
 
-#erroneous close
-ns.close()
+ms = MemoryStream()
+
 
